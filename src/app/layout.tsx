@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -28,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-700 `)}
       >
         <NavBar />
-        <main className="bg-slate-700 min-h-screen  p-16">
+        <main className=" p-16">
           {children}
         </main>
         
