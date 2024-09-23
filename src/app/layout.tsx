@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ptBR } from '@clerk/localizations'
 
 
 const geistSans = localFont({
@@ -27,16 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <body
-        className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-700 `)}
-      >
-        <NavBar />
-        <main className=" p-16">
-          {children}
-        </main>
-        
-      </body>
-    </html>
+    <ClerkProvider localization={ptBR}>
+      <html lang="pt-br">
+        <body
+          className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-700 `)}
+        >
+          <NavBar />
+          <main className=" p-16">
+            {children}
+          </main>
+          
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
