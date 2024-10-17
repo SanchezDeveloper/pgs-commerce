@@ -5,7 +5,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from '@clerk/localizations'
-
+import Hydrate from "./components/Hydrate";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,11 +34,12 @@ export default function RootLayout({
         <body
           className={clsx(`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-700 `)}
         >
-          <NavBar />
-          <main className=" p-16">
-            {children}
-          </main>
-          
+          <Hydrate>
+            <NavBar />
+            <main className=" p-16">
+              {children}
+            </main>
+          </Hydrate>
         </body>
       </html>
     </ClerkProvider>
