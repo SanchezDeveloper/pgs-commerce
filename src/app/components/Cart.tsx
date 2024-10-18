@@ -1,5 +1,6 @@
 "use client"
 import { useCartStore } from "@/store"
+import CartDrawer from "./CartDrawer";
 
 export default function Cart() {
     const useStore = useCartStore();
@@ -23,21 +24,11 @@ export default function Cart() {
                 className='
                   bg-teal-600 text-sm text-bold rounded-full h-5 w-5 flex items-center justify-center absolute left-3 bottom-3'
               >
-                15
+                {useStore.cart?.length}
               </span>
             </div>
             {!useStore.isOpen && (
-                <div onClick={() => useStore.toggleCart()} className="fixed w-full h-screen bg-black/25 left-0 top-0 z-50">
-                    <div
-                        onClick={(e) => {e.stopPropagation()}}
-                        className="absolute bg-slate-600 right-0 top-0 w-1/3 h-screen p-12 overflow-y-scroll"
-                    >
-                        <h1>Meu Carrinho</h1>
-                        {useStore.cart.map((item) => (
-                            <div key={item.id}>{item.name}</div>
-                        ))}
-                    </div>
-                </div>
+              <CartDrawer />
             )}
         </>
     )
