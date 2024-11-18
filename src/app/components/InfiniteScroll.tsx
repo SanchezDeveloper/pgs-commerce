@@ -48,11 +48,7 @@ function InfiniteScroll({
         {products.map((product) => (
             <Product key={product.id} product={product}></Product>
           ))}
-        {hasMore &&
-            <div ref={ref}>
-                carregando mais registros...
-            </div>
-        }
+        {hasMore && <div ref={ref}>carregando mais registros...</div>}
         </>
     );
 }

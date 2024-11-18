@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 type CheckoutButtonProps = { 
     totalPrice: number;
+    onCheckout: () => void;
 }
 export default function CheckoutButton({ totalPrice }: CheckoutButtonProps) {
     const router = useRouter();
@@ -13,14 +14,15 @@ export default function CheckoutButton({ totalPrice }: CheckoutButtonProps) {
     const cartStore = useCartStore();
 
     const handleCheckout = async () => {
-        if (user!) {
-            cartStore.toggleCart();
-            router.push(`/sign-in?redirectUrl='/'`);
-            return;
+        if (!user) {
+          // Se o usuário não estiver logado, redireciona para o login
+          router.push("/sign-in");
+          return;
         }
-        cartStore.setCheckout('checkout');
-    }
-
+        
+        // Se o usuário estiver logado, então proceda para o checkout
+        cartStore.setCheckout("checkout");
+      };
     return (
         <div>
             <p className="text-teal-600 font-bold">Total: {formatPrice(totalPrice)} </p>

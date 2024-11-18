@@ -9,5 +9,5 @@ export default function Hydrate ({ children }: {children: ReactNode}) {
         setIsMounted(true);
     }, []);
 
-    return isMounted ? <>{children}</> : <span>carregando...</span>;
+    return isMounted ? <>{children}</> : <span className="flex justify-center items-center mt-52">carregando...</span>;
 }
