@@ -1,6 +1,6 @@
 import { getAuth } from '@clerk/nextjs/server'
 import { stripe } from "@/lib/stripe";
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { ProductType } from '@/types/ProductType';
 import prisma from '@/lib/prisma';
 
@@ -73,10 +73,10 @@ export async function POST(req: NextRequest) {
             ]);
 
             if( !existing_order ) {
-                return new Response("Order não encontrada", { status: 401 });
+                return new NextResponse("Order não encontrada", { status: 401 });
             }
 
-            return Response.json({ paymetIntent: updated_intent}, { status: 200})
+            return NextResponse.json({ paymetIntent: updated_intent}, { status: 200})
 
         }
 
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
             data: orderData 
         });
 
-        return Response.json({ paymetIntent }, { status: 200})
+        return NextResponse.json({ paymetIntent }, { status: 200})
     }
 
 }
