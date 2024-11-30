@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { SignedIn, SignedOut, SignInButton, SignOutButton, useAuth, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, /*SignOutButton, useAuth,*/UserButton } from '@clerk/nextjs';
 import Cart from './Cart';
 
 function NavBar () {

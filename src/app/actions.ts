@@ -1,6 +1,5 @@
 'use server';
 
-import { ProductType } from "@/types/ProductType";
 import { stripe } from "@/lib/stripe";
 
 export async function fetchProducts({ 

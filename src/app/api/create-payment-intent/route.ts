@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     }
 
     
-    const customerIdTemp = 'cus_RDbg8k2wXbINXM'; //id do usuario para teste
+    //const customerIdTemp = 'cus_RDbg8k2wXbINXM'; id do usuario para teste
     const total = calculateOrderAmount(items);
 
     const orderData = {
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
                 amount: total,
             });
 
-            const [existing_order, updated_order] = await Promise.all([
+            const [existing_order/*, updated_order*/ ] = await Promise.all([
                 prisma.order.findFirst({
                     where: { paymentIntentID: payment_intent_id },
                     include: { products: true}
@@ -90,9 +90,9 @@ export async function POST(req: NextRequest) {
 
         orderData.paymentIntentID = paymetIntent.id;
 
-        const newOrder = await prisma.order.create({ 
+        /*const newOrder = await prisma.order.create({ 
             data: orderData 
-        });
+        });*/
 
         return NextResponse.json({ paymetIntent }, { status: 200})
     }

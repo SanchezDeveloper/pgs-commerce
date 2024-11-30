@@ -20,7 +20,7 @@ type EventDataType = {
     first_name: string;
     last_name: string;
     email_addresses: EmailAddressType[];
-    primary_email_address_id: string;
+    /*primary_email_address_id: string;*/
     attributes: Record<string, string | number>;
 }
 
@@ -60,7 +60,7 @@ async function handler(request: Request) {
             first_name,
             last_name,
             email_addresses,
-            primary_email_address_id,
+            /*primary_email_address_id,*/
             ...attributes
         } = evt.data; 
 
