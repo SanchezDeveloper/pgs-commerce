@@ -19,11 +19,13 @@ export async function POST(req: NextRequest) {
 
     console.log('userId:', userId);
     if (!userId) {
+        console.log("Usuário não autorizado");
         return new NextResponse("Não Autorizado", { status: 401 });
     }
 
     // Calculando o valor total
     const total = calculateOrderAmount(items);
+    console.log("Valor total calculado:", total);
 
     const orderData = {
         user: { connect: { id: 1 } },

@@ -9,28 +9,26 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 export default function Checkout() {
     const cartStore = useCartStore();
     const [clientSecret, setClientSecret] = useState('');
+
     useEffect(() => {
         fetch('/api/create-payment-intent', {
             method: 'POST',
             headers: { 
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
                 itens: cartStore.cart,
                 payment_intent_id: cartStore.paymentIntent,
             }),
         }).then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
-            }
+            console.log("Resposta da API:", res);
             return res.json();
-        })
-        .then((data) => {
+        }).then((data) => {
+            console.log("Dados retornados:", data);
             cartStore.setPaymentIntent(data.paymentIntent.id);
             setClientSecret(data.paymentIntent?.client_secret);
-        })
-        .catch((error) => {
-            console.error("Erro na API:", error);
+        }).catch((error) => {
+            console.log("Erro ao fazer fetch:", error);
         });
     }, [cartStore, cartStore.cart, cartStore.paymentIntent]);
     
@@ -53,7 +51,7 @@ export default function Checkout() {
                     
                 ) : (
                     <div>
-                    <h1>Carregando...</h1>
+                        <h1>Carregando...</h1>
                     </div>
                 )
             }
