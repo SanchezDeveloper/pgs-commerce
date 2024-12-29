@@ -22,7 +22,7 @@ async function handler(request: Request) {
     switch (event.type) {
         case "payment_intent.created":
             const payment_intent = event.data.object as Stripe.PaymentIntent;
-            console.log("created");
+            console.log("created", payment_intent);
             break;
         case "charge.succeeded": 
             const charge = event.data.object as Stripe.Charge;
@@ -31,6 +31,8 @@ async function handler(request: Request) {
                     where: { paymentIntentID: charge.payment_intent },
                     data: { status: "complete"}
                 });
+
+                console.log(order);
             }
             break;
         default: 

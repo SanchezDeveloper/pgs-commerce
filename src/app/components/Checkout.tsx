@@ -1,9 +1,13 @@
 'use client'
 import { loadStripe, StripeElementsOptions} from "@stripe/stripe-js"
-import { Elements, PaymentElement } from "@stripe/react-stripe-js"
+import { Elements } from "@stripe/react-stripe-js"
 import { useCartStore } from "@/store";
 import { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutForm";
+
+
+//Nota para correções: me parece que o projeto não está corretamente integrado ao banco de dados, há variaveis que precisam ser verificadas junto ao tutorial se seram inutilizadas ou não, as "orders" não estão indo para o banco de dados...
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
