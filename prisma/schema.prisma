@@ -21,7 +21,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   stripeCustomerId String?
-  order Order[]
+  orders Order[]
 }
 
 model Order {
@@ -43,5 +43,5 @@ model Product {
   price Float
   image String?
   quantity Float @default(0)
-  orders Order[]
+  orders Order[]
 }
