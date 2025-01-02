@@ -1,6 +1,6 @@
-import { auth, getAuth } from '@clerk/nextjs/server';
+import { auth,  } from '@clerk/nextjs/server';
 import { stripe } from "@/lib/stripe";
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { ProductType } from '@/types/ProductType';
 import prisma from '@/lib/prisma';
 
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const { items, payment_intent_id } = await req.json();
 
     if (!userId) {
-        return new NextResponse("Não Autorizado", { status: 401 });
+        return new Response("Não Autorizado", { status: 401 });
     }
 
     // Calculando o valor total
@@ -79,7 +79,9 @@ export async function POST(req: Request) {
                     return new NextResponse("Order not found", { status: 401 });
                 }
 
-                return NextResponse.json({ paymentIntent: updated_intent }, { status: 200 });
+                return NextResponse.json({ paymentIntent: updated_intent }, { status: 200 }) && NextResponse.json(
+                    { orderData: updated_order }, {status: 200}
+                );
             }
         } else {
             const paymentIntent = await stripe.paymentIntents.create({
@@ -90,9 +92,9 @@ export async function POST(req: Request) {
 
             orderData.paymentIntentID = paymentIntent.id;
 
-            const newOrder = await prisma.order.create({
-                data: orderData
-            });
+            // const newOrder = await prisma.order.create({
+            //     data: orderData
+            // });
 
             return Response.json({ paymentIntent }, { status: 200 });
         }

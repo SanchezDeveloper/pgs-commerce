@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js"
 import { useCartStore } from "@/store";
 import { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutForm";
-import { error } from "console";
+
 
 
 
@@ -25,7 +25,7 @@ export default function Checkout() {
                 payment_intent_id: cartStore.paymentIntent,
             }),
          })
-            .then((response) => { return response.json() })
+            .then((res) => { return res.json() })
             .then((data) => {
                 cartStore.setPaymentIntent(data.paymentIntent.id);
                 setClientSecret(data.paymentIntent?.client_secret);
