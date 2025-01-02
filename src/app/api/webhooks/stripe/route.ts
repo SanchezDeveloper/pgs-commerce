@@ -29,10 +29,8 @@ async function handler(request: Request) {
             if (typeof charge.payment_intent === "string") {
                 const order = await prisma.order.update({
                     where: { paymentIntentID: charge.payment_intent },
-                    data: { status: "complete"}
+                    data: { status: "complete"},
                 });
-
-                console.log(order);
             }
             break;
         default: 

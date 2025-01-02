@@ -15,7 +15,7 @@ export default function Checkout() {
     const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
-        fetch('./api/create-payment-intent', {
+        fetch('/api/create-payment-intent', {
             method: 'POST',
             headers: { 
                 "Content-Type": "application/json",
@@ -27,10 +27,19 @@ export default function Checkout() {
          })
             .then((res) => { return res.json() })
             .then((data) => {
-                cartStore.setPaymentIntent(data.paymentIntent.id);
-                setClientSecret(data.paymentIntent?.client_secret);
+                // cartStore.setPaymentIntent(data.paymentIntent.id);
+                // setClientSecret(data.paymentIntent?.client_secret);
+                if (cartStore.paymentIntent !== data.paymentIntent.id) {
+                    cartStore.setPaymentIntent(data.paymentIntent.id);
+                }
+                if (clientSecret !== data.paymentIntent?.client_secret) {
+                    setClientSecret(data.paymentIntent?.client_secret);
+                }
             })
             .catch((error) => console.error("Erro na requisição", error));
+
+            console.log("cartStore.cart mudou:", cartStore.cart);
+            console.log("cartStore.paymentIntent mudou:", cartStore.paymentIntent);
     }, [cartStore, cartStore.cart, cartStore.paymentIntent]);
     
     console.log("CartStore:", cartStore.cart);

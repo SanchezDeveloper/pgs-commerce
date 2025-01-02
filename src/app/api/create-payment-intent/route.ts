@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // Calculando o valor total
     const total = calculateOrderAmount(items);
-    console.log("Valor total calculado:", total);
+    
 
     const orderData = {
         user: { connect: { id: 1 } },
@@ -76,12 +76,12 @@ export async function POST(req: Request) {
                 ]);
 
                 if (!existing_order) {
-                    return new NextResponse("Order not found", { status: 401 });
+                    return new NextResponse("Order not found", { status: 404 });
                 }
 
-                return NextResponse.json({ paymentIntent: updated_intent }, { status: 200 }) && NextResponse.json(
-                    { orderData: updated_order }, {status: 200}
-                );
+                return NextResponse.json({ paymentIntent: updated_intent }, { status: 200 }) //&& NextResponse.json(
+                    //{ orderData: updated_order }, {status: 200}
+               // );
             }
         } else {
             const paymentIntent = await stripe.paymentIntents.create({
@@ -92,9 +92,9 @@ export async function POST(req: Request) {
 
             orderData.paymentIntentID = paymentIntent.id;
 
-            // const newOrder = await prisma.order.create({
-            //     data: orderData
-            // });
+            const newOrder = await prisma.order.create({
+                data: orderData
+            })
 
             return Response.json({ paymentIntent }, { status: 200 });
         }

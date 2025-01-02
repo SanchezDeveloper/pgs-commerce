@@ -9,7 +9,8 @@ const nextConfig = {
                 hostname: 'files.stripe.com'
             }
         ]
-      }
+    }
 };
+
 
 export default nextConfig;
