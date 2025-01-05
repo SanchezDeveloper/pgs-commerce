@@ -21,6 +21,14 @@ export async function POST(req: Request) {
         return new Response("Não Autorizado", { status: 401 });
     }
 
+    const currentUser = await prisma.user.findUnique({
+        where: {externalId: userId}
+    })
+
+    if (!currentUser) {
+        return new Response("Usuário não encontrado", { status: 400});
+    }
+
     // Calculando o valor total
     const total = calculateOrderAmount(items);
     
